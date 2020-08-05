@@ -1,0 +1,33 @@
+{
+  "name": "react-native-capsize",
+  "author": "Tien Pham",
+  "description": "Flipping how we define typography in React Native",
+  "version": "0.0.0",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.44",
+    "@types/react-native": "^0.63.4",
+    "eslint": "^7.6.0",
+    "eslint-config-tienphaw": "^1.0.0",
+    "husky": ">=4",
+    "lint-staged": ">=10",
+    "prettier": "^2.0.5",
+    "react": "^16.13.1",
+    "react-native": "^0.63.2",
+    "typescript": "^3.9.7"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,tsx,tsx}": "eslint  --fix",
+    "*.{js,ts,tsx,css,md}": "prettier --write"
+  }
+}
