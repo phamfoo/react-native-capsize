@@ -13,6 +13,7 @@ export interface CapsizeStyles {
   lineHeight?: number
   marginTop: number
   marginBottom: number
+  paddingTop: number
 }
 
 type CapHeightWithLeading = {
@@ -104,7 +105,7 @@ interface CapsizeInternal {
 
    Reference: https://trac.webkit.org/wiki/LayoutUnit
    (above wiki also mentions Mozilla - https://trac.webkit.org/wiki/LayoutUnit#Notes)
-   
+
    TODO: Figure out how this works in React Native, leaving this here for now
 */
 const PRECISION = 4
@@ -136,13 +137,15 @@ function createStyle({
   let style: CapsizeStyles = {
     fontSize: roundTo(fontSize, PRECISION),
     marginTop: roundTo(
-      leadingTrim(ascentScale - capHeightScale + lineGapScale / 2) * -1,
+      leadingTrim(ascentScale - capHeightScale + lineGapScale / 2) * -fontSize,
       PRECISION
     ),
     marginBottom: roundTo(
-      leadingTrim(descentScale + lineGapScale / 2) * -1,
+      leadingTrim(descentScale + lineGapScale / 2) * -fontSize -
+        Math.max(0, specifiedLineHeightOffset),
       PRECISION
     ),
+    paddingTop: roundTo(Math.max(0, specifiedLineHeightOffset), PRECISION),
   }
 
   if (lineHeight) {
