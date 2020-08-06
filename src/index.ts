@@ -1,5 +1,3 @@
-import roundTo from 'round-to'
-
 export interface FontMetrics {
   ascent: number
   descent: number
@@ -99,17 +97,6 @@ interface CapsizeInternal {
   fontMetrics: FontMetrics
 }
 
-/*
-   Rounding all values to a precision of `4` based on discovering that browser
-   implementations of layout units fall between 1/60th and 1/64th of a pixel.
-
-   Reference: https://trac.webkit.org/wiki/LayoutUnit
-   (above wiki also mentions Mozilla - https://trac.webkit.org/wiki/LayoutUnit#Notes)
-
-   TODO: Figure out how this works in React Native, leaving this here for now
-*/
-const PRECISION = 4
-
 function createStyle({
   lineHeight,
   fontSize,
@@ -135,23 +122,19 @@ function createStyle({
     value - toScale(specifiedLineHeightOffset)
 
   let style: CapsizeStyles = {
-    fontSize: roundTo(fontSize, PRECISION),
-    marginTop: roundTo(
+    fontSize,
+    marginTop:
       leadingTrim(ascentScale - capHeightScale + lineGapScale / 2) * -fontSize,
-      PRECISION
-    ),
-    marginBottom: roundTo(
+    marginBottom:
       leadingTrim(descentScale + lineGapScale / 2) * -fontSize -
-        Math.max(0, specifiedLineHeightOffset),
-      PRECISION
-    ),
-    paddingTop: roundTo(Math.max(0, specifiedLineHeightOffset), PRECISION),
+      Math.max(0, specifiedLineHeightOffset),
+    paddingTop: Math.max(0, specifiedLineHeightOffset),
   }
 
   if (lineHeight) {
     style = {
       ...style,
-      lineHeight: roundTo(lineHeight, PRECISION),
+      lineHeight: lineHeight,
     }
   }
 
@@ -166,8 +149,4 @@ export const getCapHeight = ({
 }: {
   fontSize: number
   fontMetrics: FontMetrics
-}) =>
-  roundTo(
-    (fontSize * fontMetrics.capHeight) / fontMetrics.unitsPerEm,
-    PRECISION
-  )
+}) => (fontSize * fontMetrics.capHeight) / fontMetrics.unitsPerEm
