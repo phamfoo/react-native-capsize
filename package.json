@@ -3,13 +3,24 @@
   "author": "Tien Pham",
   "description": "Flipping how we define typography in React Native",
   "version": "0.0.0",
-  "main": "src/index.ts",
   "license": "MIT",
+  "main": "lib/commonjs/index.js",
+  "module": "lib/module/index.js",
+  "react-native": "src/index.ts",
+  "types": "lib/typescript/src/index.d.ts",
+  "files": [
+    "lib/",
+    "src/"
+  ],
+  "scripts": {
+    "prepare": "bob build"
+  },
   "peerDependencies": {
     "react": "*",
     "react-native": "*"
   },
   "devDependencies": {
+    "@react-native-community/bob": "^0.16.2",
     "@types/react": "^16.9.44",
     "@types/react-native": "^0.63.4",
     "eslint": "^7.6.0",
@@ -29,5 +40,14 @@
   "lint-staged": {
     "*.{js,tsx,tsx}": "eslint  --fix",
     "*.{js,ts,tsx,css,md}": "prettier --write"
+  },
+  "@react-native-community/bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      "typescript"
+    ]
   }
 }
