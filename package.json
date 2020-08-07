@@ -2,7 +2,7 @@
   "name": "react-native-capsize",
   "author": "Tien Pham",
   "description": "Flipping how we define typography in React Native",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "license": "MIT",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
