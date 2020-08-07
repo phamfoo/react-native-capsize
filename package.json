@@ -47,6 +47,10 @@
     "capsize",
     "typography"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tienphaw/react-native-capsize.git"
+  },
   "@react-native-community/bob": {
     "source": "src",
     "output": "lib",
