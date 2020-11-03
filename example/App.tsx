@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, Platform } from 'react-native'
 import capsize from 'react-native-capsize'
 import { useFonts, Inter_400Regular } from '@expo-google-fonts/inter'
 import { AppLoading } from 'expo'
@@ -29,30 +29,37 @@ function Capsize() {
       lineGap,
       fontMetrics,
     }),
+    fontFamily: 'Inter_400Regular',
   }
 
   return fontsLoaded ? (
     <SafeAreaView style={styles.container}>
       <Text>{`Cap Height: ${capHeight}`}</Text>
-      <Slider
-        minimumValue={8}
-        maximumValue={28}
-        onValueChange={setCapHeight}
-        onSlidingComplete={setCapHeight}
-        step={1}
-        minimumTrackTintColor="rgb(237, 100, 166)"
-        maximumTrackTintColor="#FDE2EB"
-      />
+      <View style={styles.sliderContainer}>
+        <Slider
+          minimumValue={8}
+          maximumValue={Platform.OS === 'web' ? 100 : 28}
+          onValueChange={setCapHeight}
+          onSlidingComplete={setCapHeight}
+          step={1}
+          thumbTintColor="rgb(237, 100, 166)"
+          minimumTrackTintColor="rgb(237, 100, 166)"
+          maximumTrackTintColor="#FDE2EB"
+        />
+      </View>
       <Text>{`Line Gap: ${lineGap}`}</Text>
-      <Slider
-        minimumValue={0}
-        maximumValue={28}
-        onValueChange={setLineGap}
-        onSlidingComplete={setLineGap}
-        step={1}
-        minimumTrackTintColor="rgb(237, 100, 166)"
-        maximumTrackTintColor="#FDE2EB"
-      />
+      <View style={styles.sliderContainer}>
+        <Slider
+          minimumValue={0}
+          maximumValue={Platform.OS === 'web' ? 100 : 28}
+          onValueChange={setLineGap}
+          onSlidingComplete={setLineGap}
+          step={1}
+          thumbTintColor="rgb(237, 100, 166)"
+          minimumTrackTintColor="rgb(237, 100, 166)"
+          maximumTrackTintColor="#FDE2EB"
+        />
+      </View>
       <View
         style={styles.textContainer}
         onLayout={(e) => {
@@ -76,13 +83,16 @@ function Capsize() {
               />
             ))}
         </View>
-        <Text style={textStyle}>
-          Lorem ipsum Lolor sit amet, Lonsectetur adipiscing elit. Duis eu
-          ornare nisi, sed feugiat metus. Pellentesque rutrum vel metus non
-          dignissim. Aenean egestas neque mattis mi maximus luctus. Praesent et
-          commodo dui, nec eleifend lectus. Pellentesque blandit nisi tellus, id
-          efficitur urna consectetur id. Sed convallis tempor dui vel aliquet.
-        </Text>
+        <View>
+          <Text style={textStyle}>
+            Lorem ipsum Lolor sit amet, Lonsectetur adipiscing elit. Duis eu
+            ornare nisi, sed feugiat metus. Pellentesque rutrum vel metus non
+            dignissim. Aenean egestas neque mattis mi maximus luctus. Praesent
+            et commodo dui, nec eleifend lectus. Pellentesque blandit nisi
+            tellus, id efficitur urna consectetur id. Sed convallis tempor dui
+            vel aliquet.
+          </Text>
+        </View>
       </View>
     </SafeAreaView>
   ) : (
@@ -109,5 +119,8 @@ const styles = StyleSheet.create({
   textHighlight: {
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'space-between',
+  },
+  sliderContainer: {
+    paddingVertical: Platform.OS === 'web' ? 24 : 12,
   },
 })
