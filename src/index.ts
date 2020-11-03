@@ -126,11 +126,7 @@ function createStyle({
   let style: CapsizeStyles = {
     fontSize,
     marginTop:
-      Platform.OS === 'web'
-        ? leadingTrim(ascentScale - capHeightScale + lineGapScale / 2) *
-          -fontSize
-        : leadingTrim(ascentScale - capHeightScale + lineGapScale / 2) *
-          -fontSize,
+      leadingTrim(ascentScale - capHeightScale + lineGapScale / 2) * -fontSize,
     marginBottom:
       Platform.OS === 'web'
         ? leadingTrim(descentScale + lineGapScale / 2) * -fontSize
