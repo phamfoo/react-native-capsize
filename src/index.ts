@@ -1,3 +1,5 @@
+import { Platform } from 'react-native'
+
 export interface FontMetrics {
   ascent: number
   descent: number
@@ -124,11 +126,18 @@ function createStyle({
   let style: CapsizeStyles = {
     fontSize,
     marginTop:
-      leadingTrim(ascentScale - capHeightScale + lineGapScale / 2) * -fontSize,
+      Platform.OS === 'web'
+        ? leadingTrim(ascentScale - capHeightScale + lineGapScale / 2) *
+          -fontSize
+        : leadingTrim(ascentScale - capHeightScale + lineGapScale / 2) *
+          -fontSize,
     marginBottom:
-      leadingTrim(descentScale + lineGapScale / 2) * -fontSize -
-      Math.max(0, specifiedLineHeightOffset),
-    paddingTop: Math.max(0, specifiedLineHeightOffset),
+      Platform.OS === 'web'
+        ? leadingTrim(descentScale + lineGapScale / 2) * -fontSize
+        : leadingTrim(descentScale + lineGapScale / 2) * -fontSize -
+          Math.max(0, specifiedLineHeightOffset),
+    paddingTop:
+      Platform.OS === 'web' ? 0 : Math.max(0, specifiedLineHeightOffset),
   }
 
   if (lineHeight) {
