@@ -2,7 +2,6 @@ import * as React from 'react'
 import { StyleSheet, View, Text, Platform } from 'react-native'
 import capsize from 'react-native-capsize'
 import { useFonts, Inter_400Regular } from '@expo-google-fonts/inter'
-import { AppLoading } from 'expo'
 import Slider from '@react-native-community/slider'
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context'
 
@@ -95,9 +94,7 @@ function Capsize() {
         </View>
       </View>
     </SafeAreaView>
-  ) : (
-    <AppLoading />
-  )
+  ) : null
 }
 export default function App() {
   return (
