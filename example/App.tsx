@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { StyleSheet, View, Text, Platform } from 'react-native'
+import { StyleSheet, View, Text, Platform, PixelRatio } from 'react-native'
 import capsize from 'react-native-capsize'
 import { useFonts, Inter_400Regular } from '@expo-google-fonts/inter'
 import Slider from '@react-native-community/slider'
@@ -59,16 +59,7 @@ function Capsize() {
           maximumTrackTintColor="#FDE2EB"
         />
       </View>
-      <View
-        style={styles.textContainer}
-        onLayout={(e) => {
-          const lineNumber = Math.ceil(
-            e.nativeEvent.layout.height / (capHeight + lineGap)
-          )
-
-          setNumberOfLines(lineNumber)
-        }}
-      >
+      <View style={styles.textContainer}>
         <View style={styles.textHighlight}>
           {Array(numberOfLines)
             .fill(null)
@@ -76,14 +67,17 @@ function Capsize() {
               <View
                 key={index}
                 style={{
-                  height: capHeight,
+                  height: capHeight * PixelRatio.getFontScale(),
                   backgroundColor: '#FDE2EB',
                 }}
               />
             ))}
         </View>
         <View>
-          <Text style={textStyle}>
+          <Text
+            style={textStyle}
+            onTextLayout={(e) => setNumberOfLines(e.nativeEvent.lines.length)}
+          >
             Lorem ipsum Lolor sit amet, Lonsectetur adipiscing elit. Duis eu
             ornare nisi, sed feugiat metus. Pellentesque rutrum vel metus non
             dignissim. Aenean egestas neque mattis mi maximus luctus. Praesent

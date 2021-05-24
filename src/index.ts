@@ -1,4 +1,4 @@
-import { Platform } from 'react-native'
+import { Platform, PixelRatio } from 'react-native'
 
 export interface FontMetrics {
   ascent: number
@@ -123,17 +123,24 @@ function createStyle({
   const leadingTrim = (value: number) =>
     value - toScale(specifiedLineHeightOffset)
 
+  const fontScale = PixelRatio.getFontScale()
+
   let style: CapsizeStyles = {
     fontSize,
     marginTop:
-      leadingTrim(ascentScale - capHeightScale + lineGapScale / 2) * -fontSize,
+      leadingTrim(ascentScale - capHeightScale + lineGapScale / 2) *
+      -fontSize *
+      fontScale,
     marginBottom:
       Platform.OS === 'web'
         ? leadingTrim(descentScale + lineGapScale / 2) * -fontSize
-        : leadingTrim(descentScale + lineGapScale / 2) * -fontSize -
-          Math.max(0, specifiedLineHeightOffset),
+        : (leadingTrim(descentScale + lineGapScale / 2) * -fontSize -
+            Math.max(0, specifiedLineHeightOffset)) *
+          fontScale,
     paddingTop:
-      Platform.OS === 'web' ? 0 : Math.max(0, specifiedLineHeightOffset),
+      Platform.OS === 'web'
+        ? 0
+        : Math.max(0, specifiedLineHeightOffset) * fontScale,
   }
 
   if (lineHeight) {
