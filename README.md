@@ -1,3 +1,12 @@
+# DEPRECATED
+
+React native has [an issue](https://github.com/facebook/react-native/issues/29232) on Android that causes the Text component to render with the wrong line height.
+
+In case you still want to use this:
+
+- Go through [the issue](https://github.com/facebook/react-native/issues/29232) and see if it affects you. There's a [workaround](https://github.com/facebook/react-native/issues/29232#issuecomment-889767516) that might work for you.
+- Keep an eye on [this PR](https://github.com/seek-oss/capsize/pull/50) from Capsize's official repo.
+
 # React Native Capsize
 
 [![Stable Release](https://img.shields.io/npm/v/react-native-capsize.svg)](https://npm.im/react-native-capsize) [![license](https://badgen.now.sh/badge/license/MIT)](./LICENSE)
